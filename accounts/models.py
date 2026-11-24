@@ -11,7 +11,7 @@ class Department(models.Model):
     code = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
-        return self.code
+        return self.name
 
 
 class InterestArea(models.Model):
@@ -43,7 +43,7 @@ class User(AbstractUser):
         super().clean()
         domain = settings.UNIVERSITY_EMAIL_DOMAIN
         if self.role == self.Role.STUDENT:
-            if not re.fullmatch(r"\d{8}", self.username):
+            if not re.fullmatch(r"[0-9]{8}", self.username):
                 raise ValidationError("A student's username must be an 8-digit student ID.")
         elif self.role == self.Role.FACULTY:
             if self.username != self.email:
