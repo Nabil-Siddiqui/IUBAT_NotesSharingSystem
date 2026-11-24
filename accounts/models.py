@@ -29,7 +29,6 @@ class User(AbstractUser):
 
     role = models.CharField(max_length=10, choices=Role.choices, default=Role.STUDENT)
     full_name = models.CharField(max_length=150)
-    batch = models.CharField(max_length=20, blank=True)
     department = models.ForeignKey(
         Department, null=True, blank=True, on_delete=models.SET_NULL
     )

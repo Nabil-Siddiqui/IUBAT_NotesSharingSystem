@@ -8,7 +8,7 @@ from .models import Department, InterestArea, User
 class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         ("Notes platform", {"fields": (
-            "full_name", "role", "batch", "department",
+            "full_name", "role", "department",
             "is_verified", "is_banned", "interests",
         )}),
     )
