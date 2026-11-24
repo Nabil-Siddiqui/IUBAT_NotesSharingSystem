@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="py-5 text-center">
+  <h1 class="display-5 fw-bold">IUBAT Notes</h1>
+  <p class="lead col-lg-8 mx-auto">
+    Share your study notes with other IUBAT students. Faculty check every note
+    before it goes live, so you can trust what you read.
+  </p>
+  {% if not user.is_authenticated %}
+    {# These buttons get real links in Modules 5 and 8 #}
+    <a href="#" class="btn btn-primary btn-lg me-2">Log in</a>
+    <a href="#" class="btn btn-outline-primary btn-lg">Register</a>
+  {% else %}
+    <p>Welcome back.</p>
+  {% endif %}
+</div>
+{% endblock %}
