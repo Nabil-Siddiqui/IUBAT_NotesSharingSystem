@@ -15,12 +15,13 @@ Faculty review the notes uploaded for their courses and give feedback.
 Admin keeps everything running: checks new accounts, sorts out difficult cases and looks after the site.
 
 *Where we are now*
-Stage 1 of 7: setting up the project.
-
-Setting up the project (current stage)
-Accounts and login
-Courses
-Uploading notes
-Faculty review
-Reading, comments and ratings
-Dashboards, testing and launch
+Stage 2 of 7: Accounts and login
+/*
+1. Setting up the project (current stage)
+2. Accounts and login
+3. Courses
+4. Uploading notes
+5. Faculty review
+6. Reading, comments and ratings
+7. Dashboards, testing and launch
+*/
