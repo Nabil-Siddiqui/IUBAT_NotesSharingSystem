@@ -35,7 +35,10 @@ class StudentRegistrationForm(forms.ModelForm):
             raise forms.ValidationError(
                 f"Student ID must be exactly 8 digits. You entered {len(username)}."
             )
-        if User.objects.filter(username=username).exists():
+        existing = User.objects.filter(username=username)
+        if self.instance.pk:
+            existing = existing.exclude(pk=self.instance.pk)
+        if existing.exists():
             raise forms.ValidationError("This student ID is already registered.")
         return username
 
@@ -61,3 +64,22 @@ class StudentRegistrationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+class ConfirmEmailForm(forms.Form):
+    code = forms.CharField(
+        label="Confirmation code",
+        help_text="The 6-digit code we emailed you.",
+        error_messages={"required": "Enter the code from your email."},
+        widget=forms.TextInput(attrs={
+            "class": "form-control",
+            "maxlength": "6",
+            "inputmode": "numeric",
+            "autocomplete": "one-time-code",
+        }),
+    )
+
+    def clean_code(self):
+        code = self.cleaned_data["code"]
+        if not (code.isascii() and code.isdigit() and len(code) == 6):
+            raise forms.ValidationError("The code is exactly 6 digits.")
+        return code

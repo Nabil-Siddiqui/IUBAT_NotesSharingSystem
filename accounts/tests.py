@@ -73,7 +73,7 @@ class StudentRegistrationTests(TestCase):
 
     def test_valid_registration_creates_an_inactive_student(self):
         response = self.client.post(self.url, self.valid_data())
-        self.assertRedirects(response, reverse("registration_pending"))
+        self.assertRedirects(response, reverse("confirm_email"))
         user = User.objects.get(username="12345678")
         self.assertEqual(user.role, User.Role.STUDENT)
         self.assertFalse(user.is_active)
@@ -103,10 +103,11 @@ class StudentRegistrationTests(TestCase):
 
     def test_duplicate_id_is_rejected(self):
         self.client.post(self.url, self.valid_data())
+        User.objects.filter(username="12345678").update(is_active=True, is_verified=True)
         response = self.client.post(self.url, self.valid_data(full_name="Someone Else"))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "already registered")
-        self.assertEqual(User.objects.filter(username="12345678").count(), 1)
+        self.assertEqual(User.objects.get(username="12345678").full_name, "Test Student")
 
     def test_passwords_must_match(self):
         response = self.client.post(self.url, self.valid_data(password2="different-pass-999"))

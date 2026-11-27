@@ -130,3 +130,6 @@ UNIVERSITY_EMAIL_DOMAIN = "iubat.edu"
 from django.contrib.messages import constants as message_constants
 
 MESSAGE_TAGS = {message_constants.ERROR: "danger"}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+DEFAULT_FROM_EMAIL = "IUBAT Notes <noreply@iubat.edu>"
